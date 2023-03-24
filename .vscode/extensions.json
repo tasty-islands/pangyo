@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "voorjaar.windicss-intellisense",
+    "vue.volar",
+    "antfu.unocss",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "usernamehw.errorlens",
+    "vscode-icons-team.vscode-icons",
+    "streetsidesoftware.code-spell-checker",
+    "astro-build.astro-vscode"
+  ]
+}

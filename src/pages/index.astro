@@ -1,0 +1,9 @@
+---
+import VueSample from '../components/VueSample.vue'
+import MySiteLayout from '../layouts/DefaultLayout.astro'
+---
+
+<MySiteLayout title="Home Page">
+  <p class="my-4">My page content, wrapped in a layout!</p>
+  <VueSample client:visible />
+</MySiteLayout>
