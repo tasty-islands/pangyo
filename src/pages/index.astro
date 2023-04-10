@@ -1,9 +1,25 @@
 ---
-import VueSample from '../components/VueSample.vue'
 import MySiteLayout from '../layouts/DefaultLayout.astro'
+import VueSample from '../components/VueSample.vue'
+import ReactSample from '../components/ReactSample.tsx'
+import SvelteSample from '../components/SvelteSample.svelte'
 ---
 
 <MySiteLayout title="Home Page">
-  <p class="my-4">My page content, wrapped in a layout!</p>
-  <VueSample client:visible />
+  <div class="my-20px">
+    <a href="/pangyo/map" class="c-blue underline">지도</a>
+  </div>
+
+  <div class="my-20px">
+    <h6>Vue Sample</h6>
+    <VueSample client:visible />
+  </div>
+  <div class="my-20px">
+    <h6>React Sample</h6>
+    <ReactSample client:visible />
+  </div>
+  <div class="my-20px">
+    <h6>Svlete Sample</h6>
+    <SvelteSample client:visible />
+  </div>
 </MySiteLayout>

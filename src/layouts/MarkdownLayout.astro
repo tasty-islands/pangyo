@@ -1,17 +1,19 @@
 ---
-const { title } = Astro.props
+import '../assets/styles/markdown.css'
+
+const { frontmatter } = Astro.props
 ---
 
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
+    <title>{frontmatter.title}</title>
   </head>
   <body>
-    <div class="h-100vh text-center grid items-center justify-center">
+    <div class="h-100vh min-w-700px grid px-10px items-center justify-center">
       <main>
-        <h1 class="text-10">{title}</h1>
+        <h1 class="text-10">{frontmatter.title}</h1>
         <article>
           <slot />
           <!-- your content is injected here -->

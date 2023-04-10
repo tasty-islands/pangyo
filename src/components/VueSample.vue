@@ -9,8 +9,6 @@ function add() {
 </script>
 
 <template>
-  <div>
-    <input type="number" v-model="val" class="border p-2" />
-    <button @click="add" class="bg-light p-2">Plus</button>
-  </div>
+  <input v-model="val" type="number" class="border p-2" />
+  <button class="bg-light p-2" @click="add">Plus</button>
 </template>
