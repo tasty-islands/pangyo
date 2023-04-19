@@ -1,13 +1,15 @@
 ---
-import MySiteLayout from '../layouts/DefaultLayout.astro'
-import VueSample from '../components/VueSample.vue'
-import ReactSample from '../components/ReactSample.tsx'
-import SvelteSample from '../components/SvelteSample.svelte'
+import MySiteLayout from '@/layouts/DefaultLayout.astro'
+import VueSample from '@/components/VueSample.vue'
+import ReactSample from '@/components/ReactSample'
+import SvelteSample from '@/components/SvelteSample.svelte'
 ---
 
 <MySiteLayout title="Home Page">
   <div class="my-20px">
     <a href="/pangyo/map" class="c-blue underline">지도</a>
+    <a href="/pangyo/restaurant" class="c-blue underline">리스트</a>
+    <a href="/pangyo/restaurant/detail" class="c-blue underline">디테일</a>
   </div>
 
   <div class="my-20px">

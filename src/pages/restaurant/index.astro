@@ -1,0 +1,8 @@
+---
+import MySiteLayout from '@/layouts/DefaultLayout.astro'
+import ShopList from '@/components/ShopList.svelte'
+---
+
+<MySiteLayout title="List">
+  <ShopList client:load />
+</MySiteLayout>
