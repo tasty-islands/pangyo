@@ -5,8 +5,12 @@
     <h2 class="important-text-10">판교순대</h2>
     <p>
       <small
-        class="inline-block vertical-top px-2 py-1 bg-yellow-200 color-amber-900 border-rounded"
+        class="inline-block vertical-top px-2 py-1 bg-yellow-200 color-amber-900 border-rounded mr-2"
         >🗺 NS 지하</small
+      >
+      <small
+        class="inline-block vertical-top px-2 py-1 bg-green-200 color-amber-900 border-rounded"
+        >10% 할인</small
       >
     </p>
     <div class="mt-3 p-3 border-1 shadow-md">
