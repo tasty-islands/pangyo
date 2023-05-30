@@ -1,8 +1,10 @@
 ---
 import MySiteLayout from '@/layouts/DefaultLayout.astro'
 import ShopDetail from '@/components/ShopDetail.vue'
+import Report from '@/components/Report.svelte'
 ---
 
 <MySiteLayout title="맛집정보">
+  <Report client:load />
   <ShopDetail client:load />
 </MySiteLayout>
