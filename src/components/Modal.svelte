@@ -1,34 +1,22 @@
 <script>
-  export let showModal = false;
+	export let modalContent;
 </script>
- 
-{#if showModal}
-<div class="backdrop" on:click|self on:keydown>
-	<div class="modal">
-		<slot name="title" />
-		<slot />
-	</div>
-</div>
-{/if}
- 
-<style>
-  .backdrop {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.8);
-  }
- 
-  .modal {
-    padding: 10px;
-    border-radius: 10px;
-    max-width: 400px;
-    margin: 10% auto;
-    text-align: center;
-    background: white;
-  }
- 
 
+<div on:click|self on:keydown class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full bg-black/[.4] justify-center items-center flex">
+  <div class="relative w-full max-w-2xl max-h-full">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <svelte:component on:click this={modalContent}/>
+    </div>
+  </div>
+</div>
+
+<style>
+
+	
+	.content {
+		background-color: white;
+		width: 20em;
+		height: 20em;
+	}
 </style>

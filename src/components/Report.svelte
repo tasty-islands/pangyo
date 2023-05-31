@@ -1,9 +1,11 @@
 <script>
-
-import ReportList from './ReportList.svelte';
+import ReportModalList from './ReportModalList.svelte';
+import ReportModalForm from './ReportModalForm.svelte';
+import Modal from './Modal.svelte';
 import { setClient } from "svelte-apollo";
 import { createApolloClient } from "../graphql/apollo";
 
+//Apollo
 const {
   PUBLIC_TOKEN
 } = import.meta.env
@@ -12,33 +14,22 @@ export let authToken = PUBLIC_TOKEN;
 const client = createApolloClient(authToken);
 setClient(client);
 
-// let showModal = false;
-  
-// const toggleModal = () => {
-//   showModal = !showModal;
-// };
+//Modal
+let showModal = false;
+let modalContent;
 
-// function handleWindowKeyDown(event) {
-// 	if (event.key === 'Escape' && showModal) {
-//     console.log(event)
-// 		showModal = false
-// 	}
-// }
-
-
+function toggleModal(component) {
+	modalContent = component;
+	showModal = !showModal;
+}
+	
 </script>
 
 <div>
-  <!-- <Modal {showModal} on:click={toggleModal}>
-    <h3>오류정보 신고하기</h3>
-    <form class="flex flex-col">
-      <textarea placeholder="내용을 입력해주세요. (ex.메뉴정보가 틀립니다.)" rows="4" class="mt-3 p-3 border-1 shadow-md" />
-      
-      <button class="mt-3 inline-block vertical-top px-2 py-1 bg-sky-500 border-rounded">신고하기</button>
-    </form>
-  </Modal> -->
-  <button>오류정보 신고하기</button>
-  <ReportList />
-  
-
+  <!-- TODO: 스타일코드 혜원님 디자인에 맞춰 수정 필요 -->
+  <button on:click={() => (toggleModal(ReportModalForm))} class="mt-3 inline-block vertical-top px-2 py-1 bg-sky-500 border-rounded">오류정보 신고하기</button>
+  <button on:click={() => (toggleModal(ReportModalList))} class="mt-3 inline-block vertical-top px-2 py-1 bg-sky-500 border-rounded">오류정보 리스트</button>
 </div>
+{#if showModal}
+	<Modal on:click={toggleModal} {modalContent} />
+{/if}
