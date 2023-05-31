@@ -1,9 +1,9 @@
 <script>
-let val = 3
+  let val = 3
 
-function add() {
-  val += 1
-}
+  function add() {
+    val += 1
+  }
 </script>
 
 <input bind:value={val} type="number" class="border p-2" />
