@@ -1,8 +1,12 @@
 ---
 import MySiteLayout from '@/layouts/DefaultLayout.astro'
 import ShopDetail from '@/components/ShopDetail.vue'
+import Comments from '@/components/Comments.svelte'
+
+const { restaurantId } = Astro.params
 ---
 
 <MySiteLayout title="맛집정보">
   <ShopDetail client:load />
+  <Comments client:load />
 </MySiteLayout>
