@@ -3,6 +3,14 @@ import MySiteLayout from '@/layouts/DefaultLayout.astro'
 import ShopDetail from '@/components/ShopDetail.vue'
 import Comments from '@/components/Comments.svelte'
 
+export function getStaticPaths() {
+  return [
+    { params: { restaurantId: '1' } },
+    { params: { restaurantId: '2' } },
+    { params: { restaurantId: '3' } },
+  ]
+}
+
 const { restaurantId } = Astro.params
 ---
 
