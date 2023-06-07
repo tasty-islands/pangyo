@@ -14,11 +14,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  .content {
-    background-color: white;
-    width: 20em;
-    height: 20em;
-  }
-</style>

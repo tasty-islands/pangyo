@@ -1,10 +1,23 @@
 <script>
   import { INSERT_REPORT } from '../graphql/mutation'
-  import { mutation } from 'svelte-apollo'
+  import { GET_REPORT } from '../graphql/queries'
+  import { mutation, getClient } from 'svelte-apollo'
 
   let reportInput = ''
   const addReportMutation = mutation(INSERT_REPORT)
-
+  const updateCache = (cache, { data }) => {
+    const existingTodos = cache.readQuery({
+      query: GET_REPORT,
+      variables: {
+        id: 1,
+      },
+    })
+    const newReport = data.insert_report.returning[0]
+    cache.writeQuery({
+      query: GET_REPORT,
+      data: { report: [newReport, ...existingTodos.report] },
+    })
+  }
   async function addReport() {
     //TODO: variables restaurant_id에 따라 값 변경되게 로직 수정 필요
     try {
@@ -16,6 +29,7 @@
       }
       await addReportMutation({
         variables: testData,
+        update: updateCache,
       })
       reportInput = ''
     } catch (error) {
