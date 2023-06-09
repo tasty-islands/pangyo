@@ -1,12 +1,12 @@
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client/core'
 
-const { PUBLIC_TASTYAPI } = import.meta.env
+const { PUBLIC_TASTYAPI, PUBLIC_TOKEN } = import.meta.env
 
-export function createApolloClient(authToken) {
+export function createApolloClient() {
   const link = new HttpLink({
     uri: PUBLIC_TASTYAPI,
     headers: {
-      Authorization: `Bearer ${authToken}`,
+      Authorization: `Bearer ${PUBLIC_TOKEN}`,
     },
   })
   const cache = new InMemoryCache()

@@ -6,10 +6,7 @@
   import { createApolloClient } from '../graphql/apollo'
 
   //Apollo
-  const { PUBLIC_TOKEN } = import.meta.env
-
-  export let authToken = PUBLIC_TOKEN
-  const client = createApolloClient(authToken)
+  const client = createApolloClient()
   setClient(client)
 
   //Modal
