@@ -1,0 +1,11 @@
+<div>
+  <script
+  src="https://utteranc.es/client.js"
+  repo="tasty-islands/pangyo"
+  issue-term="pathname"
+  label="utterances"
+  theme="github-light"
+  crossorigin="anonymous"
+  async
+></script>
+</div>

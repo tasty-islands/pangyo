@@ -1,0 +1,77 @@
+---
+import MySiteLayout from '@/layouts/DefaultLayout.astro'
+---
+
+<MySiteLayout title="위치 기반 맛집 찾기">
+  <template id="google-map-template">
+    <div>
+      구글 맵 표시자: (위치: <span class="lat"></span>, <span class="lng"
+      ></span>)
+      <iframe
+        src="https://www.google.com/maps/d/u/0/embed?mid=1EPTo_1O81UVxon-OLnJvdziQ_mf5iTI&ehbc=2E312F&center=-33.8569,151.2152"
+        width="640"
+        height="480"></iframe>
+    </div>
+  </template>
+  <div>현재 위치: <span class="position"></span></div>
+  <google-map latitude="" longitude=""></google-map>
+</MySiteLayout>
+
+<script>
+  import { NK, watchLocation } from '@/utils/geo'
+  let latitude = NK.latitude
+  let longitude = NK.longitude
+  const $position = document.querySelector('.position') as HTMLSpanElement
+  const $google_map = document.querySelector('google-map')
+
+  watchLocation(coord => {
+    latitude = coord.latitude
+    longitude = coord.longitude
+
+    $position.innerText = `${latitude}, ${longitude}`
+
+    // custom element props update
+    $google_map.setAttribute('latitude', '' + latitude)
+    $google_map.setAttribute('longitude', '' + longitude)
+  })
+
+  class GoogleMap extends HTMLElement {
+    $lat: HTMLSpanElement
+    $lng: HTMLSpanElement
+    constructor() {
+      super()
+      let template = document.getElementById(
+        'google-map-template',
+      ) as HTMLTemplateElement
+      let templateContent = template.content
+      this.appendChild(templateContent.cloneNode(true))
+      this.$lat = this.querySelector('.lat') as HTMLSpanElement
+      this.$lng = this.querySelector('.lng') as HTMLSpanElement
+    }
+
+    static get observedAttributes() {
+      return ['latitude', 'longitude']
+    }
+
+    // TODO: props의 양방향 바인딩이 있어야 작업이 편해질 것 같음.
+    attributeChangedCallback(
+      name: string,
+      oldValue: string | null,
+      newValue: string | null,
+    ) {
+      console.log('-->', name, oldValue, newValue)
+      if (name === 'latitude') {
+        this.$lat.innerText = newValue
+      }
+      if (name === 'longitude') {
+        this.$lng.innerText = newValue
+      }
+    }
+
+    connectedCallback() {
+      console.log('구글 맵이 페이지에 추가됨!')
+    }
+  }
+
+  customElements.define('google-map', GoogleMap)
+</script>

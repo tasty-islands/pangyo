@@ -1,6 +1,6 @@
 module.exports = {
   extends: ['@antfu', 'prettier'],
-  plugins: ['prettier'],
+  plugins: ['prettier', 'eslint-plugin-svelte'],
   rules: {
     'no-console': 'off',
     'prettier/prettier': [
