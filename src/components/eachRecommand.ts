@@ -6,7 +6,7 @@ export class EachRecommand extends HTMLElement {
   connectedCallback() {
     const shadow = this.attachShadow({ mode: 'open' })
 
-    shadow.innerHTML = `<div>Hello world!</div>`
+    shadow.innerHTML = this.makeTemplate()
 
     this.insertStyleInnerShadowDom(shadow)
   }
@@ -19,18 +19,51 @@ export class EachRecommand extends HTMLElement {
     console.log('Custom square element moved to new page.')
   }
 
+  static get observedAttributes() {
+    return []
+  }
+
   attributeChangedCallback(name, oldValue, newValue) {
     console.log('Custom square element attributes changed.')
   }
 
-  insertStyleInnerShadowDom(shadowDom) {
+  insertStyleInnerShadowDom(shadowDom: ShadowRoot) {
     const style = document.createElement('style')
 
     style.textContent = `
-    div{
-      color: red;
-    }`
+    .each-res-wrapper{
+      margin: 5px;
+    }
+    .info-wrapper{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .info-title{
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .info-category{
+      color:#FB5B00;
+      font-size: 10px;
+    }
+    `
 
     shadowDom.appendChild(style)
+  }
+
+  makeTemplate() {
+    return `<div class='each-res-wrapper'>
+      <img src=${this.getAttribute('image-url')} width=138 height=84/>
+      <div class='info-wrapper'>
+        <div class='info-title'>
+          ${this.getAttribute('title')}
+        </div>
+        <div class='info-category'>
+          ${this.getAttribute('category-name')}
+        </div>
+      </div>
+    </div>`
   }
 }
