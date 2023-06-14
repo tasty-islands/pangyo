@@ -20,17 +20,19 @@ export async function getStaticPaths() {
   })
   const json = await res.json()
   const params = json.data.restaurants.map(restaurant => ({
-    params: { restaurantId: restaurant.id.toString(), restaurant },
+    params: { restaurantId: restaurant.id.toString() },
+    props: restaurant,
   }))
 
   return params
 }
 
-const { restaurantId, restaurant } = Astro.params
+const { restaurantId } = Astro.params
+const { restaurant } = Astro.props
 ---
 
 <MySiteLayout title="맛집정보">
   <Report client:load />
-  <ShopDetail client:load :restaurant="restaurant" />
+  <ShopDetail client:load restaurant={restaurant} />
   <Comments client:load />
 </MySiteLayout>

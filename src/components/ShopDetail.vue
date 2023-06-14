@@ -1,14 +1,15 @@
-<script>
+<script setup lang="ts">
 const props = defineProps<{
   restaurant: any
 }>()
+
 console.log(props.restaurant)
 </script>
 
 <template>
   <div class="text-center">
     <div class="text-left">
-      <button><i class="arrow left" style="float: left"></i></button>
+      <button><i class="left arrow" style="float: left"></i></button>
 
       <div id="head-menu" style="float: right">
         <ul id="head-menu">
@@ -16,7 +17,7 @@ console.log(props.restaurant)
             <a href="#" class="important-text-6">⋯</a>
             <ul>
               <li>
-                <button class="mt-3 p-3 border-1 shadow-md">
+                <button class="border-1 shadow-md mt-3 p-3">
                   오류정보 신고하기
                 </button>
               </li>
@@ -31,50 +32,52 @@ console.log(props.restaurant)
     <br />
 
     <div class="text-left">
-      <h3 class="important-text-5 font-bold">순우가</h3>
+      <h3 class="font-bold important-text-5">{{ restaurant.name }}</h3>
       <p>
         <small
-          class="inline-block vertical-top py-1 color-amber-400 font-bold mr-2"
-          >한식</small
+          class="font-bold mr-2 py-1 inline-block vertical-top color-amber-400"
         >
+          {{ restaurant.category }}
+        </small>
         <small
-          class="inline-block vertical-top py-1 color-amber-500 font-bold mr-2"
+          class="font-bold mr-2 py-1 inline-block vertical-top color-amber-500"
           >페이코 식원 가능</small
         >
       </p>
       <p>
         <small
-          class="inline-block vertical-top py-1 font-bold mr-2"
+          class="font-bold mr-2 py-1 inline-block vertical-top"
           style="color: #757575"
-          >경기 성남시 분당구 대왕판교로 670 1층 119호</small
         >
+          {{ restaurant.address }}
+        </small>
       </p>
       <p>
         <small
-          class="inline-block vertical-top py-1 font-bold mr-2"
+          class="font-bold mr-2 py-1 inline-block vertical-top"
           style="color: #757575"
           >031-739-8300</small
         >
       </p>
       <p>
         <small
-          class="inline-block vertical-top py-1 font-bold mr-2 p-1"
+          class="font-bold mr-2 p-1 py-1 inline-block vertical-top"
           style="color: #757575"
           >💬45</small
         >
       </p>
     </div>
 
-    <div class="mt-3 p-3 border-1 shadow-md">
-      <h3 class="important-text-3 font-bold">추천 음식</h3>
+    <div class="border-1 shadow-md mt-3 p-3">
+      <h3 class="font-bold important-text-3">추천 음식</h3>
       <hr class="my-3" />
       <ul>
         <li>맑은 순대국</li>
         <li>맑은 순대국</li>
       </ul>
     </div>
-    <div class="mt-3 p-3 border-1 shadow-md">
-      <h3 class="important-text-3 font-bold">가격대</h3>
+    <div class="border-1 shadow-md mt-3 p-3">
+      <h3 class="font-bold important-text-3">가격대</h3>
       <hr class="my-3" />
       <ul>
         <li>특황등순대국 9,680</li>
@@ -82,10 +85,10 @@ console.log(props.restaurant)
         <li>3인 : 37,840 (+1840원 오버)</li>
       </ul>
     </div>
-    <div class="mt-3 p-3 border-1 shadow-md">
-      <h3 class="important-text-3 font-bold">코멘트</h3>
+    <div class="border-1 shadow-md mt-3 p-3">
+      <h3 class="font-bold important-text-3">코멘트</h3>
       <hr class="my-3" />
-      <ul class="px-5 text-left list-disc">
+      <ul class="list-disc text-left px-5">
         <li>맑은 순대국으로 유명함</li>
         <li>추가금 없이 먹으려면 특황등순대국 + 탄산을 드시면 11,440원</li>
         <li>
