@@ -1,32 +1,7 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-import React, { useEffect, useState } from 'react'
-import { EachRecommand } from './eachRecommand'
+import React from 'react'
 import '../assets/styles/recommandList.css'
 
-export default function RecommandList({ title }) {
-  const [restaurantList, setRestaurantList] = useState([])
-  const endPoint = 'https://tasty.hasura.app/v1/graphql'
-
-  useEffect(() => {
-    customElements.define('each-recommand', EachRecommand)
-
-    getGraphqlData()
-  }, [])
-
-  const getGraphqlData = async () => {
-    const res = await fetch(endPoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: ''
-      },
-      body: JSON.stringify({ query }),
-    })
-    const data = await res.json()
-
-    setRestaurantList(data.data.restaurant)
-  }
-
+export default function RecommandList({ title, restaurantList }) {
   return (
     <div>
       <div>{title}</div>
@@ -58,17 +33,3 @@ declare global {
     }
   }
 }
-const query = `
-   {
-    restaurant {
-      discount
-      payco
-      id
-      address
-      category
-      location
-      name
-      url
-    }
-  }
-`

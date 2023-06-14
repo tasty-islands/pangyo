@@ -1,9 +1,10 @@
 ---
 import RecommandList from "@/components/RecommandList";
+import RecommandListWrapper from "@/components/RecommandListWrapper";
 import MySiteLayout from '@/layouts/DefaultLayout.astro'
 
 ---
 
 <MySiteLayout >
-  <RecommandList title='내 주변 식당 추천' client:load/>
+  <RecommandListWrapper client:load/>
 </MySiteLayout>
