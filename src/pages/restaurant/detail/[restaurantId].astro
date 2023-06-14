@@ -3,20 +3,34 @@ import MySiteLayout from '@/layouts/DefaultLayout.astro'
 import ShopDetail from '@/components/ShopDetail.vue'
 import Comments from '@/components/Comments.svelte'
 import Report from '@/components/Report.svelte'
+import { GET_RESTAURANT } from '@/graphql/queries'
 
-export function getStaticPaths() {
-  return [
-    { params: { restaurantId: '1' } },
-    { params: { restaurantId: '2' } },
-    { params: { restaurantId: '3' } },
-  ]
+export async function getStaticPaths() {
+  const { PUBLIC_TASTYAPI, PUBLIC_TOKEN } = import.meta.env
+
+  const res = await fetch(`${PUBLIC_TASTYAPI}/restaurants`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${PUBLIC_TOKEN}`,
+    },
+    body: JSON.stringify({
+      query: GET_RESTAURANT,
+    }),
+  })
+  const json = await res.json()
+  const params = json.data.restaurants.map(restaurant => ({
+    params: { restaurantId: restaurant.id.toString(), restaurant },
+  }))
+
+  return params
 }
 
-const { restaurantId } = Astro.params
+const { restaurantId, restaurant } = Astro.params
 ---
 
 <MySiteLayout title="맛집정보">
   <Report client:load />
-  <ShopDetail client:load />
+  <ShopDetail client:load :restaurant="restaurant" />
   <Comments client:load />
 </MySiteLayout>

@@ -1,4 +1,9 @@
-<script></script>
+<script>
+const props = defineProps<{
+  restaurant: any
+}>()
+console.log(props.restaurant)
+</script>
 
 <template>
   <div class="text-center">
