@@ -1,8 +1,6 @@
 ---
 import MySiteLayout from '@/layouts/DefaultLayout.astro'
-import VueSample from '@/components/VueSample.vue'
-import ReactSample from '@/components/ReactSample'
-import SvelteSample from '@/components/SvelteSample.svelte'
+import Searchbar from '@/components/Searchbar'
 ---
 
 <MySiteLayout title="Home Page">
@@ -13,8 +11,8 @@ import SvelteSample from '@/components/SvelteSample.svelte'
     <a href="/pangyo/restaurant/geo" class="c-blue underline">위치 기반</a>
     <a href="/pangyo/restaurant/detail/1" class="c-blue underline">디테일</a>
   </div>
-
-  <div class="my-20px">
+  <Searchbar client:visible />
+  <!-- <div class="my-20px">
     <h6>Vue Sample</h6>
     <VueSample client:visible />
   </div>
@@ -25,5 +23,5 @@ import SvelteSample from '@/components/SvelteSample.svelte'
   <div class="my-20px">
     <h6>Svlete Sample</h6>
     <SvelteSample client:visible />
-  </div>
+  </div> -->
 </MySiteLayout>
