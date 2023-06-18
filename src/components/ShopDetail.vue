@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const props = defineProps<{
-  restaurant: any
-}>()
+import { Restaurant } from '@/types/restaurant'
 
-console.log(props.restaurant)
+const props = defineProps<{
+  restaurant?: Restaurant
+}>()
 </script>
 
 <template>
@@ -31,7 +31,7 @@ console.log(props.restaurant)
 
     <br />
 
-    <div class="text-left">
+    <div v-if="restaurant" class="text-left">
       <h3 class="font-bold important-text-5">{{ restaurant.name }}</h3>
       <p>
         <small
