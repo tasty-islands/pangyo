@@ -20,7 +20,49 @@ import c from '@/utils/c'
 // flex-grow: 0;
 
 function AdditionalInfo() {
-  return <div>정보: </div>
+  // TODO: url query 기반 상태 렌더링
+  const [kind, setKind] = useState<'없음' | '한식' | '중식' | '양식'>('없음')
+  const [filter, setFilter] = useState<'없음' | '거리' | '리뷰'>('없음')
+
+  return (
+    <div className="flex space-x-2">
+      <div className="flex items-center relative group">
+        <select
+          className={c(
+            'appearance-none',
+            'text-[#616161] pl-9px pr-32px py-[7px]',
+            'border border-[0.4px] border-[#BDBDBD] shadow-[0_2px_4px_1px_rgba(0,0,0,0.1)] rounded-3',
+            'hover:border-[#FB5B00] hover:text-[#FB5B00]',
+            'cursor-pointer',
+          )}
+        >
+          <option>종류</option>
+          <option>한식</option>
+          <option>중식</option>
+          <option>양식</option>
+        </select>
+        <div className="bg-[url(/assets/Dropdown.svg)] w-12px h-12px bg-contain bg-center bg-no-repeat absolute right-12px" />
+      </div>
+      <button
+        className={c(
+          'text-[#616161] px-9px py-[7px]',
+          'border border-[0.4px] border-[#BDBDBD] shadow-[0_2px_4px_1px_rgba(0,0,0,0.1)] rounded-3',
+          'hover:border-[#FB5B00] hover:text-[#FB5B00]',
+        )}
+      >
+        가까운 순
+      </button>
+      <button
+        className={c(
+          'text-[#616161] px-9px py-[7px]',
+          'border border-[0.4px] border-[#BDBDBD] shadow-[0_2px_4px_1px_rgba(0,0,0,0.1)] rounded-3',
+          'hover:border-[#FB5B00] hover:text-[#FB5B00]',
+        )}
+      >
+        리뷰많은 순
+      </button>
+    </div>
+  )
 }
 
 export default function Searchbar() {
@@ -52,7 +94,9 @@ export default function Searchbar() {
           inputRef.current.focus()
         }}
       ></button>
-      <AdditionalInfo />
+      <div className="mt-2">
+        <AdditionalInfo />
+      </div>
     </div>
   )
 }
