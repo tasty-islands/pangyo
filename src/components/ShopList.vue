@@ -1,23 +1,27 @@
 <script>
-import { onMounted } from 'vue'
-import { provideApolloClient, useQuery } from '@vue/apollo-composable'
-
+import { ref, onMounted } from 'vue'
 import { createApolloClient } from '../graphql/apollo'
 import { GET_RESTAURANT } from '../graphql/queries'
-
-const client = createApolloClient()
-provideApolloClient(client)
 
 export default {
   name: 'ShopList',
 
   setup() {
-    const { result, loading, error } = useQuery(GET_RESTAURANT, null, {
-      client,
-    })
+    const result = ref({})
+    const loading = ref(true)
+    const error = ref()
 
     onMounted(async () => {
-      await result
+      try {
+        const client = createApolloClient()
+        const { data } = await client.query({
+          query: GET_RESTAURANT,
+        })
+        result.value = data
+        loading.value = false
+      } catch (e) {
+        error.value = e
+      }
     })
 
     return {
