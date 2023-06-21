@@ -8,16 +8,19 @@ import { createApolloClient } from '@/graphql/apollo'
 import { GET_RESTAURANT } from '@/graphql/queries'
 
 export async function getStaticPaths() {
-  const client = createApolloClient()
-  const { data } = await client.query({
-    query: GET_RESTAURANT,
-  })
-  const params = data.restaurant.map((restaurant: Restaurant) => ({
-    params: { restaurantId: restaurant.id.toString() },
-    props: { restaurant },
-  }))
-
-  return params
+  try {
+    const client = createApolloClient()
+    const { data } = await client.query({
+      query: GET_RESTAURANT,
+    })
+    const params = data.restaurant.map((restaurant: Restaurant) => ({
+      params: { restaurantId: restaurant.id.toString() },
+      props: { restaurant },
+    }))
+    return params
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 const { restaurantId } = Astro.params
