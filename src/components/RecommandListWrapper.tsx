@@ -28,7 +28,8 @@ const RecommandListWrapper = () => {
   }, [])
 
   useEffect(() => {
-    setListFromGeo(getListFromGeo(restaurantList))
+    setListFromGeo(getListFromGeo(restaurantList, 5))
+    setRandomList(getListRandom(restaurantList, 5))
   }, [restaurantList.length])
 
   const getGraphqlData = async () => {
@@ -49,7 +50,7 @@ const RecommandListWrapper = () => {
     const distance = Math.sqrt(Math.abs(x1 - x2) ** 2 + Math.abs(y1 - y2) ** 2)
     return distance
   }
-  const getListFromGeo = originList => {
+  const getListFromGeo = (originList, pickCount) => {
     const distanceList = originList.map(val => {
       const [restaurantX, restaurantY] = val.location.split(',')
       return {
@@ -66,9 +67,17 @@ const RecommandListWrapper = () => {
       return a.distance > b.distance ? 1 : -1
     })
 
-    return distanceList.slice(0, 5)
+    return distanceList.slice(0, pickCount)
   }
-  const getListRandom = () => {}
+  const getListRandom = (originList, pickCount) => {
+    const originLen = originList.length
+    const randomList = []
+    for (let i = 0; i < pickCount; i++) {
+      randomList.push((Math.random() * originLen).toFixed(0))
+    }
+    const result = randomList.map(i => originList[i])
+    return result[0] ? result : []
+  }
 
   return (
     <div className="total-recommand-wrapper">
@@ -76,7 +85,7 @@ const RecommandListWrapper = () => {
       <RecommandList title="내 주변 식당 추천" restaurantList={listFromGeo} />
       <RecommandList
         title="오늘의 식당 랜덤 추천"
-        restaurantList={restaurantList}
+        restaurantList={randomList}
       />
     </div>
   )
