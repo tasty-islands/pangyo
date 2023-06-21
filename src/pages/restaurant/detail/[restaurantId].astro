@@ -3,20 +3,29 @@ import MySiteLayout from '@/layouts/DefaultLayout.astro'
 import ShopDetail from '@/components/ShopDetail.vue'
 import Comments from '@/components/Comments.svelte'
 import Report from '@/components/Report.svelte'
+import { Restaurant } from '@/types/restaurant'
+import { createApolloClient } from '@/graphql/apollo'
+import { GET_RESTAURANT } from '@/graphql/queries'
 
-export function getStaticPaths() {
-  return [
-    { params: { restaurantId: '1' } },
-    { params: { restaurantId: '2' } },
-    { params: { restaurantId: '3' } },
-  ]
+export async function getStaticPaths() {
+  const client = createApolloClient()
+  const { data } = await client.query({
+    query: GET_RESTAURANT,
+  })
+  const params = data.restaurant.map((restaurant: Restaurant) => ({
+    params: { restaurantId: restaurant.id.toString() },
+    props: { restaurant },
+  }))
+
+  return params
 }
 
 const { restaurantId } = Astro.params
+const { restaurant } = Astro.props
 ---
 
 <MySiteLayout title="맛집정보">
   <Report {restaurantId} client:load />
-  <ShopDetail client:load />
+  <ShopDetail client:load restaurant={restaurant} />
   <Comments client:load />
 </MySiteLayout>
