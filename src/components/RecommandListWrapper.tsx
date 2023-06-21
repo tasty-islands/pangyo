@@ -4,11 +4,12 @@ import { EachRecommand } from './eachRecommand'
 import RecommandList from './RecommandList'
 import { NK, watchLocation } from '@/utils/geo'
 
+const { PUBLIC_TASTYAPI, PUBLIC_TOKEN } = import.meta.env
+
 const RecommandListWrapper = () => {
   const [restaurantList, setRestaurantList] = useState([])
   const [listFromGeo, setListFromGeo] = useState([])
   const [randomList, setRandomList] = useState([])
-  const endPoint = 'https://tasty.hasura.app/v1/graphql'
   const [currentLocation, setCurrentLocation] = useState([
     NK.latitude,
     NK.longitude,
@@ -33,11 +34,11 @@ const RecommandListWrapper = () => {
   }, [restaurantList.length])
 
   const getGraphqlData = async () => {
-    const res = await fetch(endPoint, {
+    const res = await fetch(PUBLIC_TASTYAPI, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: '',
+        Authorization: `Bearer ${PUBLIC_TOKEN}`,
       },
       body: JSON.stringify({ query }),
     })
