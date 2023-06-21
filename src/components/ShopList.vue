@@ -1,4 +1,37 @@
-<script></script>
+<script>
+import { ref, onMounted } from 'vue'
+import { createApolloClient } from '../graphql/apollo'
+import { GET_RESTAURANT } from '../graphql/queries'
+
+export default {
+  name: 'ShopList',
+
+  setup() {
+    const result = ref({})
+    const loading = ref(true)
+    const error = ref()
+
+    onMounted(async () => {
+      try {
+        const client = createApolloClient()
+        const { data } = await client.query({
+          query: GET_RESTAURANT,
+        })
+        result.value = data
+        loading.value = false
+      } catch (e) {
+        error.value = e
+      }
+    })
+
+    return {
+      result,
+      loading,
+      error,
+    }
+  },
+}
+</script>
 
 <template>
   <header>
@@ -24,35 +57,14 @@
       <button>리뷰많은 순</button>
     </div>
   </header>
+
   <ul class="list">
-    <li>
-      <strong>서브웨이 판교테크노밸리점</strong>
-      <small class="category">패스트푸드</small>
-      <small>경기 성남시 분당구 대왕판교로 670 1층 119호</small>
-      <div class="comment">99</div>
-    </li>
-    <li>
-      <strong>서브웨이 판교테크노밸리점</strong>
-      <small class="category">패스트푸드</small>
-      <small>경기 성남시 분당구 대왕판교로 670 1층 119호</small>
-      <div class="comment">99</div>
-    </li>
-    <li>
-      <strong>서브웨이 판교테크노밸리점</strong>
-      <small class="category">패스트푸드</small>
-      <small>경기 성남시 분당구 대왕판교로 670 1층 119호</small>
-      <div class="comment">99</div>
-    </li>
-    <li>
-      <strong>서브웨이 판교테크노밸리점</strong>
-      <small class="category">패스트푸드</small>
-      <small>경기 성남시 분당구 대왕판교로 670 1층 119호</small>
-      <div class="comment">99</div>
-    </li>
-    <li>
-      <strong>서브웨이 판교테크노밸리점</strong>
-      <small class="category">패스트푸드</small>
-      <small>경기 성남시 분당구 대왕판교로 670 1층 119호</small>
+    <li v-if="loading">Loading...</li>
+    <li v-else-if="error">{{ error.message }}</li>
+    <li v-for="restaurant in result.restaurant" v-else :key="restaurant.id">
+      <strong>{{ restaurant.name }}</strong>
+      <small class="category">{{ restaurant.category }}</small>
+      <small>{{ restaurant.address }}</small>
       <div class="comment">99</div>
     </li>
   </ul>
