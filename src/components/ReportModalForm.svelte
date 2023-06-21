@@ -4,12 +4,27 @@
   import { mutation, getClient } from 'svelte-apollo'
 
   let reportInput = ''
+  let reporter = ''
+  export let restaurantId
+  let questions = [
+    { id: 1, text: `임시휴업` },
+    { id: 2, text: `폐업` },
+    { id: 3, text: `여기에 없는 장소임` },
+    { id: 4, text: `다른 장소와 중복됨` },
+    { id: 5, text: `불쾌감을 주거나 유해하거나 오해의 소지가 있음` },
+    { id: 6, text: `비공개 장소임` },
+    { id: 7, text: `다른 곳으로 이사` },
+    { id: 8, text: `기타` },
+  ]
+
+  let selected
+
   const addReportMutation = mutation(INSERT_REPORT)
   const updateCache = (cache, { data }) => {
     const existingTodos = cache.readQuery({
       query: GET_REPORT,
       variables: {
-        id: 1,
+        id: restaurantId,
       },
     })
     const newReport = data.insert_report.returning[0]
@@ -19,19 +34,19 @@
     })
   }
   async function addReport() {
-    //TODO: variables restaurant_id에 따라 값 변경되게 로직 수정 필요
     try {
-      const testData = {
-        restaurant_id: 1,
+      const sendData = {
+        restaurant_id: restaurantId,
         comment: reportInput,
-        type: '테스트 타입',
-        user: 'soyoung',
+        type: selected.text,
+        user: reporter,
       }
       await addReportMutation({
-        variables: testData,
+        variables: sendData,
         update: updateCache,
       })
       reportInput = ''
+      reporter = ''
     } catch (error) {
       console.log(error)
     }
@@ -67,9 +82,24 @@
 </div>
 <!-- Modal body -->
 <form class="flex flex-col" on:submit|preventDefault={addReport}>
+  <input
+    type="text"
+    bind:value={reporter}
+    placeholder="연락받으실 이메일을 입력해주세요."
+    class="m-4 p-3 mb-0 border-1"
+  />
+
+  <select bind:value={selected} class="m-4 p-3 mb-0 border-1">
+    {#each questions as question}
+      <option value={question}>
+        {question.text}
+      </option>
+    {/each}
+  </select>
+
   <textarea
     bind:value={reportInput}
-    placeholder="내용을 입력해주세요. (ex.메뉴정보가 틀립니다.)"
+    placeholder="상세한 신고내용을 작성해주세요."
     rows="4"
     class="m-4 p-3 border-1"
   />

@@ -13,6 +13,7 @@ export function createApolloClient() {
   const client = new ApolloClient({
     link,
     cache,
+    ssrMode: true,
   })
   return client
 }

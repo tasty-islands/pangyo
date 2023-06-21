@@ -1,5 +1,6 @@
 <script>
   export let modalContent
+  export let restaurantId
 </script>
 
 <div
@@ -10,7 +11,7 @@
   <div class="relative w-full max-w-2xl max-h-full">
     <!-- Modal content -->
     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-      <svelte:component this={modalContent} on:click />
+      <svelte:component this={modalContent} {restaurantId} on:click />
     </div>
   </div>
 </div>

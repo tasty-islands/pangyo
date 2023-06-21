@@ -16,7 +16,7 @@ const { restaurantId } = Astro.params
 ---
 
 <MySiteLayout title="맛집정보">
-  <Report client:load />
+  <Report {restaurantId} client:load />
   <ShopDetail client:load />
   <Comments client:load />
 </MySiteLayout>

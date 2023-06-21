@@ -4,6 +4,7 @@
   import Modal from './Modal.svelte'
   import { setClient } from 'svelte-apollo'
   import { createApolloClient } from '../graphql/apollo'
+  import { writable } from 'svelte/store'
 
   //Apollo
   const client = createApolloClient()
@@ -12,6 +13,7 @@
   //Modal
   let showModal = false
   let modalContent
+  export let restaurantId
 
   function toggleModal(component) {
     modalContent = component
@@ -33,5 +35,5 @@
   >
 </div>
 {#if showModal}
-  <Modal on:click={toggleModal} {modalContent} />
+  <Modal on:click={toggleModal} {modalContent} {restaurantId} />
 {/if}
