@@ -25,7 +25,7 @@ const { restaurant } = Astro.props
 ---
 
 <MySiteLayout title="맛집정보">
-  <Report client:load />
+  <Report {restaurantId} client:load />
   <ShopDetail client:load restaurant={restaurant} />
   <Comments client:load />
 </MySiteLayout>

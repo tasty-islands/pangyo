@@ -1,11 +1,11 @@
 <script>
   import { GET_REPORT } from '../graphql/queries'
   import { query } from 'svelte-apollo'
+  export let restaurantId
 
   const reports = query(GET_REPORT, {
     variables: {
-      //TODO: variables restaurant_id에 따라 변경되게 로직 수정 필요
-      id: 1,
+      id: restaurantId,
     },
   })
 </script>
