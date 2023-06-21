@@ -81,7 +81,7 @@ const RecommandListWrapper = () => {
 
   return (
     <div className="total-recommand-wrapper">
-      <div>{`${currentLocation[0]},${currentLocation[1]}`}</div>
+      <div>{`현재 위치: ${currentLocation[0]},${currentLocation[1]}`}</div>
       <RecommandList title="내 주변 식당 추천" restaurantList={listFromGeo} />
       <RecommandList
         title="오늘의 식당 랜덤 추천"
