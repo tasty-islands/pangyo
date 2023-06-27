@@ -10,6 +10,7 @@ export default function RecommandList({ title, restaurantList }) {
           ({ discount, payco, id, address, category, location, name, url }) => {
             return (
               <each-recommand
+                href={`/pangyo/restaurant/detail/${id}`}
                 image-url="https://github.com/tasty-islands/pangyo/assets/67806982/fe94c433-6e89-4c80-827a-1bb387652ef3"
                 title={name}
                 category-name={category}

@@ -33,6 +33,8 @@ export class EachRecommand extends HTMLElement {
     style.textContent = `
     .each-res-wrapper{
       margin: 5px;
+      color: inherit;
+      text-decoration: none;
     }
     .info-wrapper{
       display: flex;
@@ -54,7 +56,7 @@ export class EachRecommand extends HTMLElement {
   }
 
   makeTemplate() {
-    return `<div class='each-res-wrapper'>
+    return `<a class='each-res-wrapper' href=${this.getAttribute('href')}>
       <img src=${this.getAttribute('image-url')} width=138 height=84/>
       <div class='info-wrapper'>
         <div class='info-title'>
@@ -64,6 +66,6 @@ export class EachRecommand extends HTMLElement {
           ${this.getAttribute('category-name')}
         </div>
       </div>
-    </div>`
+    </a>`
   }
 }
