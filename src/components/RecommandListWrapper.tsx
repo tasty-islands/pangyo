@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { EachRecommand } from './eachRecommand'
 import RecommandList from './RecommandList'
 import { NK, watchLocation } from '@/utils/geo'
-
-const { PUBLIC_TASTYAPI, PUBLIC_TOKEN } = import.meta.env
+import { useStore } from '@nanostores/react'
+import { restaurants } from '@/stores/restaurantStore'
 
 const RecommandListWrapper = () => {
-  const [restaurantList, setRestaurantList] = useState([])
+  const restaurantList = useStore(restaurants)
   const [listFromGeo, setListFromGeo] = useState([])
   const [randomList, setRandomList] = useState([])
   const [currentLocation, setCurrentLocation] = useState([
@@ -25,27 +25,13 @@ const RecommandListWrapper = () => {
 
   useEffect(() => {
     customElements.define('each-recommand', EachRecommand)
-    getGraphqlData()
+    // getGraphqlData()
   }, [])
 
   useEffect(() => {
     setListFromGeo(getListFromGeo(restaurantList, 5))
     setRandomList(getListRandom(restaurantList, 5))
   }, [restaurantList.length])
-
-  const getGraphqlData = async () => {
-    const res = await fetch(PUBLIC_TASTYAPI, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${PUBLIC_TOKEN}`,
-      },
-      body: JSON.stringify({ query }),
-    })
-    const data = await res.json()
-
-    setRestaurantList(data.data.restaurant)
-  }
 
   const calculateDistance = (x1, y1, x2, y2) => {
     const distance = Math.sqrt(Math.abs(x1 - x2) ** 2 + Math.abs(y1 - y2) ** 2)

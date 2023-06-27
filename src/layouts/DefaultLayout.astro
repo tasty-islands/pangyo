@@ -19,10 +19,10 @@ const { title } = Astro.props
     </style>
   </head>
   <body>
-    <div class="max-w-xl h-100vh mx-a flex items-top justify-center">
+    <div class="flex mx-a max-w-xl h-100vh items-top justify-center">
       <main class="flex-auto">
-        <h1 class="text-5 text-center">{title}</h1>
-        <article>
+        <!-- <h1 class="text-center text-5">{title}</h1> -->
+        <article class="h-full">
           <slot />
           <!-- your content is injected here -->
         </article>

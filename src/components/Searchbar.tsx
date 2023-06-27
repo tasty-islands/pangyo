@@ -41,7 +41,7 @@ function AdditionalInfo() {
           <option>중식</option>
           <option>양식</option>
         </select>
-        <div className="bg-[url(/assets/Dropdown.svg)] w-12px h-12px bg-contain bg-center bg-no-repeat absolute right-12px" />
+        <div className="bg-[url(/assets/Dropdown.svg)] bg-contain bg-center bg-no-repeat h-12px right-12px w-12px absolute" />
       </div>
       <button
         className={c(
@@ -71,8 +71,8 @@ export default function Searchbar() {
   const [value, setValue] = useState('')
 
   return (
-    <div className="relative mx-[10px]">
-      <div className="w-[44px] h-[44px] bg-[url(/assets/SearchIcon.svg)] absolute left-0 top-0"></div>
+    <div className="m-[10px] relative">
+      <div className="bg-[url(/assets/SearchIcon.svg)] h-[44px] top-0 left-0 w-[44px] absolute"></div>
       <input
         ref={inputRef}
         name="query"

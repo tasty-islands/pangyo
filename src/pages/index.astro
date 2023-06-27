@@ -1,28 +1,26 @@
 ---
 import MySiteLayout from '@/layouts/DefaultLayout.astro'
 import Searchbar from '@/components/Searchbar'
+import RecommandListWrapper from '@/components/RecommandListWrapper'
 ---
 
 <MySiteLayout title="Home Page">
-  <div class="my-20px">
+  <!-- <div class="my-20px">
     <a href="/pangyo/map" class="c-blue underline">지도</a>
     <a href="/pangyo/restaurant" class="c-blue underline">리스트</a>
-    <!-- <a href="/pangyo/restaurant/detail" class="c-blue underline">디테일</a> -->
+    <a href="/pangyo/restaurant/detail" class="c-blue underline">디테일</a>
     <a href="/pangyo/restaurant/geo" class="c-blue underline">위치 기반</a>
     <a href="/pangyo/restaurant/detail/1" class="c-blue underline">디테일</a>
-    <a href="/pangyo/restaurant/recommand" class="c-blue underline">식당 추천</a>
-  </div>
-  <Searchbar client:visible />
-  <!-- <div class="my-20px">
-    <h6>Vue Sample</h6>
-    <VueSample client:visible />
-  </div>
-  <div class="my-20px">
-    <h6>React Sample</h6>
-    <ReactSample client:visible />
-  </div>
-  <div class="my-20px">
-    <h6>Svlete Sample</h6>
-    <SvelteSample client:visible />
+    <a href="/pangyo/restaurant/recommand" class="c-blue underline">식당 추천</a
+    >
   </div> -->
+  <div class="flex flex-col h-full justify-between">
+    <Searchbar client:visible />
+    <div class="flex-auto">
+      <iframe
+        src="https://www.google.com/maps/d/u/0/embed?mid=1EPTo_1O81UVxon-OLnJvdziQ_mf5iTI&ehbc=2E312F&center=-33.8569,151.2152"
+        class="h-full object-fit w-full"></iframe>
+    </div>
+    <RecommandListWrapper client:load />
+  </div>
 </MySiteLayout>
