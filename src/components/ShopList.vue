@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { createApolloClient } from '../graphql/apollo'
 import { GET_RESTAURANT } from '../graphql/queries'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 
 export default {
   name: 'ShopList',
@@ -45,7 +46,9 @@ export default {
     </div>
     <div class="filter">
       <div class="btn_sel_category">
-        <label for="selCategory">종류</label>
+        <label for="selCategory"
+          >종류 <i class="bi bi-caret-down-fill"></i
+        ></label>
         <select id="selCategory">
           <option>종류</option>
           <option>한식</option>
@@ -59,13 +62,15 @@ export default {
   </header>
 
   <ul class="list">
-    <li v-if="loading">Loading...</li>
+    <li v-if="loading">
+      <div class="loading"><i class="bi bi-arrow-clockwise"></i></div>
+    </li>
     <li v-else-if="error">{{ error.message }}</li>
     <li v-for="restaurant in result.restaurant" v-else :key="restaurant.id">
       <strong>{{ restaurant.name }}</strong>
       <small class="category">{{ restaurant.category }}</small>
       <small>{{ restaurant.address }}</small>
-      <div class="comment">99</div>
+      <div class="comment"><i class="bi bi-chat-dots"></i> 99</div>
     </li>
   </ul>
 </template>
@@ -103,6 +108,7 @@ header {
       box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.1);
       border-radius: 12px;
       line-height: 32px;
+      font-size: 12px;
     }
     select {
       position: absolute;
@@ -121,6 +127,7 @@ header {
     box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
     line-height: 32px;
+    font-size: 12px;
   }
 }
 .list {
@@ -141,8 +148,24 @@ header {
     small {
       font-size: 12px;
     }
+    .category {
+      color: #fd8c3c;
+    }
     .comment {
       font-size: 12px;
+    }
+    .loading {
+      text-align: center;
+      font-size: 2em;
+      animation: loadingAnimation 1s linear infinite;
+      @keyframes loadingAnimation {
+        0% {
+          transform: rotate(0);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
     }
   }
 }
