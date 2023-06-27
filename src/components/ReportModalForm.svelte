@@ -21,16 +21,21 @@
 
   const addReportMutation = mutation(INSERT_REPORT)
   const updateCache = (cache, { data }) => {
-    const existingTodos = cache.readQuery({
+    const existingReport = cache.readQuery({
       query: GET_REPORT,
       variables: {
         id: restaurantId,
       },
     })
+
     const newReport = data.insert_report.returning[0]
+
     cache.writeQuery({
       query: GET_REPORT,
-      data: { report: [newReport, ...existingTodos.report] },
+      variables: {
+        id: restaurantId,
+      },
+      data: { report: [newReport, ...existingReport.report] },
     })
   }
   async function addReport() {
