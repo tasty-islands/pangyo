@@ -1,5 +1,7 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import c from '@/utils/c'
+import { useStore } from '@nanostores/react'
+import { searchKeyword } from '@/stores/restaurantStore'
 
 // width: 300px;
 // height: 44px;
@@ -69,6 +71,10 @@ export default function Searchbar() {
   const inputRef = useRef<HTMLInputElement>(null)
   // TODO: 상태를 적절한 곳으로 옮기기
   const [value, setValue] = useState('')
+
+  useEffect(() => {
+    searchKeyword.set(value)
+  }, [value])
 
   return (
     <div className="m-[10px] relative">

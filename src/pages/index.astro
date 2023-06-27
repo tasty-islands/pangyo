@@ -2,6 +2,7 @@
 import MySiteLayout from '@/layouts/DefaultLayout.astro'
 import Searchbar from '@/components/Searchbar'
 import RecommandListWrapper from '@/components/RecommandListWrapper'
+import ShopList from '@/components/ShopList.vue'
 ---
 
 <MySiteLayout title="Home Page">
@@ -21,6 +22,7 @@ import RecommandListWrapper from '@/components/RecommandListWrapper'
         src="https://www.google.com/maps/d/u/0/embed?mid=1EPTo_1O81UVxon-OLnJvdziQ_mf5iTI&ehbc=2E312F&center=-33.8569,151.2152"
         class="h-full object-fit w-full"></iframe>
     </div>
+    <ShopList client:load />
     <RecommandListWrapper client:load />
   </div>
 </MySiteLayout>

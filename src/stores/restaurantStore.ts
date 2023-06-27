@@ -4,6 +4,7 @@ import { createApolloClient } from '@/graphql/apollo'
 import { GET_RESTAURANT } from '@/graphql/queries'
 
 export const isLoading = atom(false)
+export const error = atom()
 export const restaurants = atom<Restaurant[]>([])
 export const searchKeyword = atom('')
 
@@ -17,6 +18,7 @@ onMount(restaurants, () => {
       })
       restaurants.set(data.restaurant)
     } catch (e) {
+      error.set(e.message)
       console.error(e)
     } finally {
       isLoading.set(false)

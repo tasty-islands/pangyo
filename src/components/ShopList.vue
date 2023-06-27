@@ -1,7 +1,12 @@
-<script>
-import { ref, onMounted } from 'vue'
-import { createApolloClient } from '../graphql/apollo'
-import { GET_RESTAURANT } from '../graphql/queries'
+<script lang="ts">
+import { computed, ref } from 'vue'
+import { useStore } from '@nanostores/vue'
+import {
+  isLoading,
+  restaurants,
+  error,
+  searchKeyword,
+} from '@/stores/restaurantStore'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
 export default {
@@ -9,33 +14,30 @@ export default {
 
   setup() {
     const result = ref({})
-    const loading = ref(true)
-    const error = ref()
+    const errorMessage = useStore(error)
+    const loading = useStore(isLoading)
+    const restaurantList = useStore(restaurants)
+    const searchText = useStore(searchKeyword)
 
-    onMounted(async () => {
-      try {
-        const client = createApolloClient()
-        const { data } = await client.query({
-          query: GET_RESTAURANT,
-        })
-        result.value = data
-        loading.value = false
-      } catch (e) {
-        error.value = e
-      }
-    })
+    const filteredList = computed(() =>
+      restaurantList.value.filter(({ name }) =>
+        name.toLowerCase().includes(searchText.value.toLowerCase()),
+      ),
+    )
 
     return {
       result,
+      errorMessage,
       loading,
-      error,
+      filteredList,
+      searchText,
     }
   },
 }
 </script>
 
 <template>
-  <header>
+  <!-- <header>
     <div class="search">
       <input
         class="p-3"
@@ -59,18 +61,24 @@ export default {
       <button>가까운 순</button>
       <button>리뷰많은 순</button>
     </div>
-  </header>
+  </header> -->
 
   <ul class="list">
     <li v-if="loading">
       <div class="loading"><i class="bi bi-arrow-clockwise"></i></div>
     </li>
-    <li v-else-if="error">{{ error.message }}</li>
-    <li v-for="restaurant in result.restaurant" v-else :key="restaurant.id">
-      <strong>{{ restaurant.name }}</strong>
-      <small class="category">{{ restaurant.category }}</small>
-      <small>{{ restaurant.address }}</small>
-      <div class="comment"><i class="bi bi-chat-dots"></i> 99</div>
+    <li v-else-if="errorMessage">{{ errorMessage }}</li>
+    <li
+      v-else-if="searchText"
+      v-for="restaurant in filteredList"
+      :key="restaurant.id"
+    >
+      <a :href="`/pangyo/restaurant/detail/${restaurant.id}`">
+        <strong>{{ restaurant.name }}</strong>
+        <small class="category">{{ restaurant.category }}</small>
+        <small>{{ restaurant.address }}</small>
+        <div class="comment"><i class="bi bi-chat-dots"></i> 99</div>
+      </a>
     </li>
   </ul>
 </template>
